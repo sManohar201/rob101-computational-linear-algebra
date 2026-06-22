@@ -1,0 +1,73 @@
+import L01 from '../lessons/m1/L01.jsx'
+
+export const MODULES = [
+  {
+    id: 'm1',
+    title: 'Module 1',
+    subtitle: 'Linear Systems & Matrix Machinery',
+    color: '#ff6b6b',
+    thread: 'Every problem in robotics, ML, and physics reduces to solving Ax = b.',
+    lectures: [
+      { id: 'l01', num: '01', title: 'Introduction to Linear Systems',        component: L01  },
+      { id: 'l02', num: '02', title: 'Vectors, Matrices & Determinants',       component: null },
+      { id: 'l03', num: '03', title: 'Triangular Systems & Substitution',      component: null },
+      { id: 'l04', num: '04', title: 'Matrix Multiplication',                  component: null },
+      { id: 'l05', num: '05', title: 'LU Factorization',                       component: null },
+      { id: 'l06', num: '06', title: 'Inverses, Transposes & det(AB)',         component: null },
+    ],
+  },
+  {
+    id: 'm2',
+    title: 'Module 2',
+    subtitle: 'Vector Spaces: The Deep Structure',
+    color: '#4488ff',
+    thread: 'Individual vectors are points. Collections of vectors have geometry.',
+    lectures: [
+      { id: 'l07', num: '07', title: 'Linear Combinations & Independence',     component: null },
+      { id: 'l08', num: '08', title: 'Linear Independence (continued)',        component: null },
+      { id: 'l09', num: '09', title: 'Linear Independence (continued)',        component: null },
+      { id: 'l10', num: '10', title: 'Euclidean Norm, Least Squares & Regression', component: null },
+      { id: 'l11', num: '11', title: 'Subspaces: Range, Column Span, Null Space', component: null },
+      { id: 'l12', num: '12', title: 'Dot Product & Orthonormal Vectors',      component: null },
+      { id: 'l13', num: '13', title: 'QR Factorization',                       component: null },
+      { id: 'l14', num: '14', title: 'Basis Vectors & Eigenvalues',            component: null },
+      { id: 'l15', num: '15', title: 'Range, Null Space, Rank & Nullity',     component: null },
+      { id: 'l16', num: '16', title: 'Recap: Chapters 1–10',                  component: null },
+    ],
+  },
+  {
+    id: 'm3',
+    title: 'Module 3',
+    subtitle: 'Nonlinear Methods & Optimization',
+    color: '#44dd88',
+    thread: 'Linearize nonlinear problems and iterate to solutions.',
+    lectures: [
+      { id: 'l17', num: '17', title: 'Bisection & Newton\'s Method',           component: null },
+      { id: 'l18', num: '18', title: 'Gradient & Jacobian',                    component: null },
+      { id: 'l19', num: '19', title: 'Newton-Raphson for Vector Functions',    component: null },
+      { id: 'l20', num: '20', title: 'Gradient Descent',                       component: null },
+      { id: 'l21', num: '21', title: 'Second-Order Optimization',              component: null },
+    ],
+  },
+  {
+    id: 'm4',
+    title: 'Module 4',
+    subtitle: 'Geometry, Hyperplanes & Machine Learning',
+    color: '#a78bfa',
+    thread: 'Linear algebra separates and classifies the world.',
+    lectures: [
+      { id: 'l22', num: '22', title: 'Affine Spaces & Hyperplanes',            component: null },
+      { id: 'l23', num: '23', title: 'QP & Maximum Margin Classifier',        component: null },
+      { id: 'l24', num: '24', title: 'Soft Margin & Gaussian SVM',            component: null },
+    ],
+  },
+]
+
+export function findLecture(id) {
+  for (const mod of MODULES) {
+    for (const lec of mod.lectures) {
+      if (lec.id === id) return { ...lec, module: mod }
+    }
+  }
+  return null
+}
