@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · remaining lectures are stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 
@@ -40,7 +40,7 @@ This module builds every tool needed to do that efficiently.
 - **L3** *(built, 2 widgets):* (a) Forward/back substitution stepper (DOM) — step through lower/upper triangular presets one unknown at a time, active equation + pivot highlighted and the solution vector filling in, plus a singular zero-pivot case that fails at the offending row; (b) "why det = product of the diagonal" — the 3×3 lower-triangular column box whose volume is unchanged by below-diagonal shear and collapses to zero when a diagonal entry does
 - **L4** *(built, 2 widgets):* (a) Matrix-multiply stepper (DOM) — step through each output entry of A·B with the i-th row of A and j-th column of B lit, the dot-product algebra shown live, the size rule [n×k]·[k×m] displayed, plus a size-mismatch preset that flags "undefined"; (b) matrix-as-transform — a 2×2 matrix acting on a draggable vector v, with the columns of A drawn as the images of e₁,e₂ and A·v = v₁col₁+v₂col₂ shown in red, presets for rotation/scaling/general
 - **L5:** LU step-by-step — L fills green below diagonal, U fills red above, animated elimination
-- **L6:** det as signed volume of parallelepiped in 3D — drag columns, watch volume update live
+- **L6** *(built, 2 widgets):* (a) the 2×2 inverse lab (DOM) — slide a,b,c,d, watch det = ad−bc gatekeep the closed-form inverse and A·A⁻¹ snap to I, going "undefined" the instant det hits zero; (b) "A⁻¹ the hard way" stepper (DOM) — build A⁻¹ column by column by solving A·xᵢ = eᵢ, then see the actual Ax = b was a single solve all along, with a near-singular preset (Ex. 6.4) whose inverse explodes into entries ~10⁴ for a modest right-hand side
 
 ---
 
