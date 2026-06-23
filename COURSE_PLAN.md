@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · remaining lectures are stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 

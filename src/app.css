@@ -601,6 +601,33 @@ body {
 }
 .mmul-work { min-height: 150px; }
 
+/* ─── L5 · LU factorization stepper ──────────────────────────────────────── */
+.lu {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 26px;
+  padding: 20px 22px 22px;
+  align-items: start;
+}
+.lu-mats { display: flex; flex-direction: column; gap: 18px; }
+.lu-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lu-block { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.lu-label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px;
+  font-family: var(--font-mono); color: var(--text-muted); text-transform: uppercase;
+}
+.lu-op { font-size: 20px; color: var(--text-muted); padding: 0 2px; align-self: center; margin-top: 16px; }
+/* filled factor cells: L green (below + diagonal), U red (above + diagonal) */
+.mcell.lfill   { background: #e7f5ec; border-color: #bfe6cd; color: #0f6b3c; font-weight: 600; }
+.mcell.ufill   { background: #fdeaec; border-color: #f6c9ce; color: #a51f29; font-weight: 600; }
+.mcell.lactive { background: #d3efdd; border-color: var(--green); color: #0a5630; font-weight: 700; }
+.mcell.uactive { background: #fbd5da; border-color: var(--red);   color: #8f1822; font-weight: 700; }
+.mcell.empty   { color: var(--text-dim); border-style: dashed; }
+
+@media (max-width: 720px) {
+  .lu { grid-template-columns: 1fr; gap: 18px; }
+}
+
 /* ─── Code block ─────────────────────────────────────────────────────────── */
 .code-block {
   background: #0f1830;
