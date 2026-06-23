@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · remaining lectures are stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 
@@ -29,7 +29,7 @@ This module builds every tool needed to do that efficiently.
 |-----|-------|-----------|-----------------|
 | ✅ 1 | Why Computational Linear Algebra? | Systems of equations as the universal language of engineering | Robot arm: 3 joints, 3 angle constraints = 3 equations |
 | ✅ 2 | Vectors, Matrices & Determinants | Scalars vs arrays; row/column vectors; rectangular vs square matrices; det as uniqueness test | Lidar scan = column vector of 360 range readings |
-| 3 | Triangular Systems: Forward & Back Substitution | Structure as the key to tractability; det of triangular = product of diagonal | Chain of transforms in a kinematic chain = lower-triangular cascade |
+| ✅ 3 | Triangular Systems: Forward & Back Substitution | Structure as the key to tractability; det of triangular = product of diagonal | Chain of transforms in a kinematic chain = lower-triangular cascade |
 | 4 | Matrix Multiplication | Row·column definition; size rules; permutation matrices; block views | Composing two rotation matrices = a single rotation |
 | 5 | LU Factorization | Gaussian elimination encodes as L; solve Ly=b then Ux=y; PLU with pivoting | Real-time solver on embedded hardware (must be O(n²) after factoring once) |
 | 6 | det(AB), Matrix Inverses & Transposes | det(AB)=det(A)det(B); inverse formula; why you almost never compute A⁻¹; Aᵀ | Pseudo-inverse appears in robot Jacobian control |
@@ -37,7 +37,7 @@ This module builds every tool needed to do that efficiently.
 ### Three.js Widgets — Module 1
 - **L1** *(built, 3 widgets):* (a) quadratic discriminant — slide a,b,c, watch the two roots slide together and lift off the axis; (b) two lines, three outcomes — unique / parallel / identical; (c) three planes in 3D meeting at one point
 - **L2** *(built, 3 widgets):* (a) System ⇄ Matrix assembler (DOM) — hover an equation to light its row of A, with inserted "missing-coefficient" zeros and a live det verdict; (b) determinant as signed **area** of the 2×2 column parallelogram; (c) determinant as signed **volume** of the 3×3 column parallelepiped
-- **L3:** Animated forward/back substitution — highlight each pivot, variables "uncovering" one by one
+- **L3** *(built, 2 widgets):* (a) Forward/back substitution stepper (DOM) — step through lower/upper triangular presets one unknown at a time, active equation + pivot highlighted and the solution vector filling in, plus a singular zero-pivot case that fails at the offending row; (b) "why det = product of the diagonal" — the 3×3 lower-triangular column box whose volume is unchanged by below-diagonal shear and collapses to zero when a diagonal entry does
 - **L4:** Matrix multiply visualizer — color-coded row·column dot products, size mismatch demonstration
 - **L5:** LU step-by-step — L fills green below diagonal, U fills red above, animated elimination
 - **L6:** det as signed volume of parallelepiped in 3D — drag columns, watch volume update live
