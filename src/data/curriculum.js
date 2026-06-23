@@ -1,4 +1,5 @@
 import L01 from '../lessons/m1/L01.jsx'
+import L02 from '../lessons/m1/L02.jsx'
 
 export const MODULES = [
   {
@@ -9,7 +10,7 @@ export const MODULES = [
     thread: 'Every problem in robotics, ML, and physics reduces to solving Ax = b.',
     lectures: [
       { id: 'l01', num: '01', title: 'Introduction to Linear Systems',        component: L01  },
-      { id: 'l02', num: '02', title: 'Vectors, Matrices & Determinants',       component: null },
+      { id: 'l02', num: '02', title: 'Vectors, Matrices & Determinants',       component: L02  },
       { id: 'l03', num: '03', title: 'Triangular Systems & Substitution',      component: null },
       { id: 'l04', num: '04', title: 'Matrix Multiplication',                  component: null },
       { id: 'l05', num: '05', title: 'LU Factorization',                       component: null },
