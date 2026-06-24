@@ -11,6 +11,15 @@ import L10 from '../lessons/m2/L10.jsx'
 import L11 from '../lessons/m2/L11.jsx'
 import L12 from '../lessons/m2/L12.jsx'
 import L13 from '../lessons/m2/L13.jsx'
+import L14 from '../lessons/m2/L14.jsx'
+import L15 from '../lessons/m2/L15.jsx'
+import L17 from '../lessons/m3/L17.jsx'
+import L18 from '../lessons/m3/L18.jsx'
+import L19 from '../lessons/m3/L19.jsx'
+import L20 from '../lessons/m3/L20.jsx'
+import L21 from '../lessons/m3/L21.jsx'
+import L22 from '../lessons/m4/L22.jsx'
+import L23 from '../lessons/m4/L23.jsx'
 
 export const MODULES = [
   {
@@ -42,8 +51,8 @@ export const MODULES = [
       { id: 'l11', num: '11', title: 'Subspaces: Range, Column Span, Null Space', component: L11 },
       { id: 'l12', num: '12', title: 'Dot Product & Orthonormal Vectors',      component: L12 },
       { id: 'l13', num: '13', title: 'QR Factorization',                       component: L13 },
-      { id: 'l14', num: '14', title: 'Basis Vectors & Eigenvalues',            component: null },
-      { id: 'l15', num: '15', title: 'Range, Null Space, Rank & Nullity',     component: null },
+      { id: 'l14', num: '14', title: 'Basis Vectors & Eigenvalues',            component: L14  },
+      { id: 'l15', num: '15', title: 'Range, Null Space, Rank & Nullity',     component: L15  },
       { id: 'l16', num: '16', title: 'Recap: Chapters 1–10',                  component: null },
     ],
   },
@@ -54,11 +63,11 @@ export const MODULES = [
     color: '#44dd88',
     thread: 'Linearize nonlinear problems and iterate to solutions.',
     lectures: [
-      { id: 'l17', num: '17', title: 'Bisection & Newton\'s Method',           component: null },
-      { id: 'l18', num: '18', title: 'Gradient & Jacobian',                    component: null },
-      { id: 'l19', num: '19', title: 'Newton-Raphson for Vector Functions',    component: null },
-      { id: 'l20', num: '20', title: 'Gradient Descent',                       component: null },
-      { id: 'l21', num: '21', title: 'Second-Order Optimization',              component: null },
+      { id: 'l17', num: '17', title: 'Bisection & Newton\'s Method',           component: L17  },
+      { id: 'l18', num: '18', title: 'Gradient & Jacobian',                    component: L18  },
+      { id: 'l19', num: '19', title: 'Newton-Raphson for Vector Functions',    component: L19  },
+      { id: 'l20', num: '20', title: 'Gradient Descent',                       component: L20  },
+      { id: 'l21', num: '21', title: 'Second-Order Optimization',              component: L21  },
     ],
   },
   {
@@ -68,8 +77,8 @@ export const MODULES = [
     color: '#a78bfa',
     thread: 'Linear algebra separates and classifies the world.',
     lectures: [
-      { id: 'l22', num: '22', title: 'Affine Spaces & Hyperplanes',            component: null },
-      { id: 'l23', num: '23', title: 'QP & Maximum Margin Classifier',        component: null },
+      { id: 'l22', num: '22', title: 'Affine Spaces & Hyperplanes',            component: L22  },
+      { id: 'l23', num: '23', title: 'QP & Maximum Margin Classifier',        component: L23  },
       { id: 'l24', num: '24', title: 'Soft Margin & Gaussian SVM',            component: null },
     ],
   },
