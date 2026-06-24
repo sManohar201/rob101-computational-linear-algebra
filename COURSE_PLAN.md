@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L8` · `✅ L9` · `✅ L10` · `✅ L11` · `✅ L12` · `✅ L13` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L8` · `✅ L9` · `✅ L10` · `✅ L11` · `✅ L12` · `✅ L13` · `✅ L14` · `✅ L15` · `✅ L17` · `✅ L18` · `✅ L19` · `✅ L20` · `✅ L21` · `✅ L22` · `✅ L23` · only `L16` (recap) and `L24` (soft-margin/Gaussian SVM) remain stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 
@@ -59,8 +59,8 @@ Understanding that geometry separates engineers who compute from engineers who u
 | ✅ 11 | Vector Space ℝⁿ Pt 2: Subspaces | Ch. 9 §9.1–9.4: vector space axioms; subspace (closed under lin. comb., must contain 0); the three sources — null(A), span{S}, col span{A}; col span ⇔ solvability; rank/nullity preview | Robot workspace = range(J); null space = motions that don't move the end-effector |
 | ✅ 12 | Dot Product & Orthonormal Vectors | Ch. 9 §9.5–9.7: inner product u·v=uᵀv; angle/orthogonality (u·v=0); norm; orthonormal sets; orthogonal⇒independent; orthogonal matrices QᵀQ=I, Q⁻¹=Qᵀ; Gram-Schmidt | IMU gyro axes must be orthonormal; misalignment = non-zero dot products |
 | ✅ 13 | QR Factorization | Ch. 9 §9.8–9.10: A=QR via Gram-Schmidt; pipeline (factor, b̄=Qᵀb, back-sub Rx=b̄); least squares via QR (AᵀA=RᵀR); minimum-norm via QR of Aᵀ; underdetermined steering | Steering a mobile robot to the origin on minimum control effort; SLAM/Cassie use QR internally |
-| 14 | Basis Vectors & Eigenvalues | Coordinates in a basis; dimension; Av=λv; diagonalization | Principal axes of a rigid body = eigenvectors of inertia tensor |
-| 15 | Range, Null Space, Rank & Nullity | Rank-nullity theorem; four fundamental subspaces; row space | Degrees of freedom of a robot = nullity of constraint matrix |
+| ✅ 14 | Basis Vectors & Eigenvalues | Ch. 10 §10.2–10.3: basis = independent + spanning; coordinates/representation; det≠0 ⇔ basis of ℝⁿ; Av=λv; characteristic equation det(λI−A)=0; eigenbasis / complex pairs / symmetric⇒orthonormal; Aᵏx → dominant eigenvector | Principal axes of a rigid body = eigenvectors of inertia tensor; PCA; PageRank |
+| ✅ 15 | Range, Null Space, Rank & Nullity | Ch. 10 §10.4–10.6: null(A), range = col span; solvability/uniqueness; general solution x=xₚ+null(A); rank/nullity; rank+nullity=m + proof sketch | Degrees of freedom of a robot = nullity of constraint matrix; range(J) = reachable workspace |
 | 16 | Recap: Chapters 1–10 | Consolidation: linear systems → factorizations → vector spaces | Full pipeline: sensor data → solved state vector |
 
 ### Three.js Widgets — Module 2
@@ -71,9 +71,9 @@ Understanding that geometry separates engineers who compute from engineers who u
 - **L11** *(built, 2 widgets):* (a) "is this line a subspace?" — slide slope/intercept of `y = mx + b`; the origin dot turns red and the purple `v₁+v₂` sum falls off the line the instant `b ≠ 0`, visualizing the two subspace tests (contains 0, closed under +); built on Grizzle Ex. 9.1 / Fig 9.1; (b) the subspace **zoo** — a 3×3 matrix `A` with rank-3/2/1 presets drawing `col span{A}` (teal: ℝ³ → plane → line) and `null(A)` (purple: point → line → plane) simultaneously, HUD showing rank + nullity = 3. Covers Ch. 9 §9.1–9.4: subspace definition, easy first test, the three sources (null/span/col span), col span ⇔ solvability; worked Ex. 9.4 (null space) & 9.9 (column span); previews rank–nullity
 - **L12** *(built, 2 widgets):* (a) dot product as an **angle meter** — two vectors set by angle+length sliders, HUD shows `u·v = ‖u‖‖v‖cosθ` and the angle, badge flips to "orthogonal" exactly at `u·v = 0`, orange projection (shadow) of v on u shown; presets incl. the book's (3,4)⟂(−7/3,7/4) pair; (b) **Gram-Schmidt** stepper — step through `vₖ = uₖ − Σ projⱼ`, grey input `uₖ`, orange shadow being subtracted, colored `vₖ` popping out ⟂ to the faint previous span (line/plane), then a normalize toggle to the orthonormal `qᵢ`; live `vᵢ·vⱼ = 0` check. Covers Ch. 9 §9.5–9.7: inner product, orthogonality, norm/normalize, orthonormal⇒independent, orthogonal matrices, Gram-Schmidt; worked Ex. 9.14 & 9.18
 - **L13** *(built, 2 widgets):* (a) the **QR pipeline** solver (DOM) — pick `A,b`, step through factor `A = QR` (numeric Q,R), form `b̄ = Qᵀb`, back-substitute `Rx = b̄`; verified to reproduce Grizzle Ex. 9.20's `x = (−1,2,1)`; (b) **steering a mobile robot** (Grizzle §9.10) — `pₖ₊₁ = Apₖ + Buₖ`; the zero-control preset spirals outward like a Roomba, the steer presets solve the underdetermined `Muₛₑ𝓆 = pₙ − Sp₀` for the **minimum-norm** control and glide to the origin, HUD shows control effort `‖u‖²` (verified 10.26 at N=20 vs 200.5 at N=1, matching the book). Covers Ch. 9 §9.8–9.10: QR factorization, the suggested pipeline, least squares via QR (`AᵀA = RᵀR`), minimum-norm/underdetermined solutions; worked Ex. 9.19–9.22
-- **L14:** Eigenvalue visualizer — apply matrix, watch most vectors rotate BUT eigenvectors only stretch; λ live
-- **L15:** Four fundamental subspaces simultaneously — all four in one 3D widget with orthogonality shown
-- **L16:** Full pipeline widget — input A and b, watch flow through LU → QR → solution
+- **L14** *(built, 2 widgets):* (a) the **eigenvector finder** — sweep an input vector v(θ) and watch its image Av swing off-axis (orange) until it snaps back onto a faint dashed **eigen-line** (Av = λv); presets for distinct-real / symmetric (orthogonal eigvecs) / shear / pure-rotation (complex, badge flips to "every vector rotates") / contraction+growth, with snap-to-v₁/v₂ buttons and a live tr/det/λ HUD; (b) **power iteration** (DOM) — normalised Aᵏx with a converging angle column showing the direction locking onto the dominant eigenvector (green when converged), complex preset never converging. Covers Ch. 10 §10.2–10.3: basis/coordinates/dimension, det≠0⇔basis, characteristic equation, eigenbasis/complex/symmetric facts, Aᵏx → dominant eigenvector (PageRank/PCA)
+- **L15** *(built, 2 widgets):* (a) **solution set = xₚ + null(A)** — null(A) drawn through the origin (purple line/plane) and the parallel teal solution set through xₚ; slide along the null direction(s) and A·x stays pinned at b; presets for rank-2/nullity-1 (line), rank-1/nullity-2 (plane), unique point, and b∉range (no solution), with a rank+nullity=m HUD; (b) the **rank–nullity ledger** (DOM) — a table over square and non-square shapes (incl. the 7×5 Grizzle example) verifying rank+nullity=m every time. Covers Ch. 10 §10.4–10.6: null/range, existence/uniqueness, general solution, rank–nullity theorem + proof sketch
+- **L16:** Full pipeline widget — input A and b, watch flow through LU → QR → solution *(stub)*
 
 ---
 
@@ -85,18 +85,18 @@ Understanding that geometry separates engineers who compute from engineers who u
 
 | Lec | Topic | Key Ideas | Robotics Anchor |
 |-----|-------|-----------|-----------------|
-| 17 | Bisection & Newton's Method (scalar) | Root finding f(x)=0; bisection convergence; Newton as linearization; local slope without calculus | Joint angle satisfying a reach constraint |
-| 18 | Vector-valued Functions: Gradient & Jacobian | f: ℝᵐ→ℝⁿ; linear approximation; gradient ∇f; Jacobian J | Robot forward kinematics: J maps joint velocities → Cartesian velocities |
-| 19 | Newton-Raphson for Vector Functions | Solve J·Δx = −f iteratively; convergence radius | Inverse kinematics: find joint angles given end-effector position |
-| 20 | Optimization: First-Order (Gradient Descent) | argmin f(x); critical points; gradient = 0; step size; loss landscapes | Training a neural network; path planning cost minimization |
-| 21 | Optimization: Second-Order Unconstrained | Hessian; Newton's optimization; quadratic approximation; convergence rate | Faster IK; optimal control |
+| ✅ 17 | Bisection & Newton's Method (scalar) | Ch. 11 §11.1–11.4: root finding f(x)=0; IVT bracket + bisection; forward/backward/symmetric finite differences; Newton xₖ₊₁=xₖ−f/f′ + damping; quadratic vs linear convergence | Joint angle satisfying a reach constraint |
+| ✅ 18 | Vector-valued Functions: Gradient & Jacobian | Ch. 11 §11.5: partials; gradient ∇f (row); Jacobian (n×m); linear approximations f(x)≈f(x₀)+J(x−x₀); det J = ℓ₁ℓ₂ sin θ₂ singularity | Robot forward kinematics: J maps joint velocities → Cartesian velocities |
+| ✅ 19 | Newton-Raphson for Vector Functions | Ch. 11 §11.6: solve J·Δx = −f(x) (no inverse), x←x+Δx, damped variant; quadratic convergence | Inverse kinematics: find joint angles given end-effector position |
+| ✅ 20 | Optimization: First-Order (Gradient Descent) | Ch. 12 §12.1–12.4: cost f; ∇f steepest-ascent, ∇f=0 at extrema; x←x−s[∇f]ᵀ; step-size stability s<2/λₘₐₓ, condition number; calibration case study | Training a neural network; path planning cost minimization; LiDAR-camera calibration |
+| ✅ 21 | Optimization: Second-Order Unconstrained | Ch. 12 §12.5–12.9: Hessian (symmetric); Newton min ∇²f·Δx=−[∇f]ᵀ; definiteness (min/max/saddle); convexity ⇒ global min; QP preview; 400× speed-up | Faster IK; optimal control / MPC |
 
 ### Three.js Widgets — Module 3
-- **L17:** Bisection + Newton's animated on a 2D curve — bracket shrinks vs tangent-line iteration; convergence rate HUD
-- **L18:** Jacobian field — 2D robot arm; drag joints, see Jacobian columns as velocity arrows at end-effector
-- **L19:** Newton-Raphson IK — drag a target point, watch joint angles converge step-by-step with iteration counter
-- **L20:** Loss landscape in 3D — gradient descent ball rolling down a surface; adjust learning rate live
-- **L21:** Gradient descent vs Newton's method on same landscape; quadratic approximation bowl shown at each step
+- **L17** *(built, 2 widgets):* (a) **Newton on a curve** — step through xₖ₊₁=xₖ−f/f′ with the tangent line walking the guess onto the teal true root; presets x²−2 (√2) / x³−2x−5 / cos x−x, live error readout; (b) **bisection vs Newton race** (DOM) — side-by-side iteration tables solving x²−2, bisection halving (~34 steps to 1e-10) vs Newton squaring the error (~5 steps). Covers Ch. 11 §11.1–11.4: IVT/bracket, bisection, finite differences, Newton + damping, convergence orders
+- **L18** *(built, 2 widgets):* (a) the **arm Jacobian** — a 2-link planar arm with joint sliders; the two Jacobian columns drawn as hand-velocity arrows (red = joint 1, blue = joint 2); when the arm straightens (θ₂→0) the columns align and det J = ℓ₁ℓ₂ sin θ₂ → 0, firing a "near singular" badge; (b) the **gradient as a linear forecaster** (DOM) — on the bowl x²+2y², step away from x₀ and compare true f vs the gradient's linear prediction, error growing with distance. Covers Ch. 11 §11.5: partials, gradient, Jacobian, linear approximation, singularities
+- **L19** *(built, 2 widgets):* (a) **Newton-Raphson IK** — pick a target, step through solving J·Δθ=−(f(θ)−target); the arm homes in with a fading trail of past hand positions and a residual readout; (b) **quadratic-convergence ledger** (DOM) — per-iteration θ and residual ‖f(θₖ)‖ collapsing (≈ squaring) to <1e-9 in ~5 steps. Covers Ch. 11 §11.6: J·Δx=−f solve, damping, inverse kinematics, singular ill-conditioning
+- **L20** *(built, 2 widgets):* (a) **rolling downhill** — a real 3D loss surface (round bowl / narrow ill-conditioned valley / tilted bowl) with a gradient-descent path; scrub the learning rate to watch it crawl, zig-zag, or overshoot and diverge (badge); (b) the **step-size cliff** (DOM) — sweep s on the narrow valley showing the sharp boundary at s=2/λₘₐₓ=0.25 between convergence and blow-up. Covers Ch. 12 §12.1–12.4: cost, gradient facts, descent update, step-size stability/condition number, calibration case study
+- **L21** *(built, 2 widgets):* (a) **gradient descent vs Newton** on the same 3D surface — orange GD zig-zag against blue Newton's straight shot (one step to the minimum of a quadratic) with a step-count speed-up HUD; (b) the **curvature test** (DOM) — Hessian eigenvalues classifying critical points as min (pos-def) / max (neg-def) / saddle (indefinite). Covers Ch. 12 §12.5–12.9: Hessian, Newton minimization ∇²f·Δx=−[∇f]ᵀ, definiteness, convexity, QP/least-squares-as-QP preview
 
 ---
 
@@ -108,14 +108,14 @@ This is the foundation of modern ML.
 
 | Lec | Topic | Key Ideas | Robotics Anchor |
 |-----|-------|-----------|-----------------|
-| 22 | Affine Spaces & Hyperplanes | Hyperplane: {x : wᵀx = b}; orthogonal projection; affine subspace = subspace + offset | Collision detection: is a point on the safe side of a boundary? |
-| 23 | Hyperplanes in ℝⁿ, QP & Max-Margin Classifier | Signed distance to hyperplane; support vectors; hard-margin SVM as QP | Terrain classification for a walking robot |
+| ✅ 22 | Affine Spaces & Hyperplanes | Ch. 13 §13.1–13.2, §13.4: hyper-subspace = null(aᵀ); hyperplane H=xc+N; half-spaces H⁺/H⁻; signed distance a·(x−xc)/‖a‖; orthogonal projection theorem, Gram matrix, normal equations = least squares | Collision detection: is a point on the safe side of a boundary? |
+| ✅ 23 | Hyperplanes in ℝⁿ, QP & Max-Margin Classifier | Ch. 13 §13.3 + Ch. 12 §12.8: signed-distance score; margin 2/‖a‖; support vectors; hard-margin SVM as QP min ½‖w‖² s.t. ℓᵢ(wᵀx̃ᵢ)≥1; QP standard form; least squares as QP (Q=2AᵀA, q=−2Aᵀb) | Terrain classification for a walking robot |
 | 24 | Soft Margin & Gaussian SVM | Slack variables; kernel trick; Gaussian RBF kernel; nonlinear decision boundary | Obstacle classification from lidar with non-separable point clouds |
 
 ### Three.js Widgets — Module 4
-- **L22:** Drag a point cloud in 3D, see its orthogonal projection onto a plane; affine offset shown as shift from origin
-- **L23:** Hard-margin SVM — drag 2D point clouds, watch optimal hyperplane and margin bands update live
-- **L24:** Kernel SVM — nonlinearly separable data in 2D lifted to 3D via feature map, then linearly separated
+- **L22** *(built, 2 widgets):* (a) **hyperplane & signed distance** — a tilted plane with its normal a in ℝ³; drag a query point across it and watch the signed distance a·(x−xc)/‖a‖ flip sign between H⁺ (teal) and H⁻ (rose), foot-of-perpendicular drawn; (b) **orthogonal projection** — project x₀ onto a plane V=span{v₁,v₂}; the rose error x₀−x* stays ⟂ V with a live Pythagorean check ‖x₀‖²=‖x*‖²+‖e‖², tying projection to the least-squares normal equations. Covers Ch. 13 §13.1–13.2, §13.4: hyper-subspace/hyperplane, half-spaces, signed distance, projection theorem, Gram matrix
+- **L23** *(built, 2 widgets):* (a) the **max-margin classifier** — two labelled 2D clouds; rotate/shift the boundary and read the margin (smallest gap), then ★ snap-to-optimum (brute-force max-min over orientation) marks the support vectors (white-dotted) and flips the badge to "max-margin solution (SVM)"; non-separating orientations flagged; (b) the **QP behind the margin** (DOM) — the hard-margin QP min ½‖w‖² s.t. ℓᵢ(wᵀx̃ᵢ)≥1, the OSQP standard form, and least-squares-as-QP (Q=2AᵀA, q=−2Aᵀb). Covers Ch. 13 §13.3 + Ch. 12 §12.8
+- **L24:** Kernel SVM — nonlinearly separable data in 2D lifted to 3D via feature map, then linearly separated *(stub)*
 
 ---
 
