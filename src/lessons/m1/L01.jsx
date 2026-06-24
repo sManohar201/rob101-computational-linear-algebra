@@ -417,8 +417,9 @@ export default function L01() {
         </div>
         <h1 className="lesson-title">Introduction to Systems of Linear Equations</h1>
         <p className="lesson-subtitle">
-          A warm-up from algebra, the three things that can happen when you solve, and a 3×3 system painful
-          enough by hand to make you crave better tools. This is where computational linear algebra begins.
+          We start with a warm-up from basic algebra, explore the three possible outcomes when solving systems
+          of equations, and tackle a 3×3 system that is tedious enough by hand to demonstrate the need for
+          computational tools. This is where computational linear algebra begins.
         </p>
       </div>
 
