@@ -5,6 +5,8 @@ import L04 from '../lessons/m1/L04.jsx'
 import L05 from '../lessons/m1/L05.jsx'
 import L06 from '../lessons/m1/L06.jsx'
 import L07 from '../lessons/m2/L07.jsx'
+import L08 from '../lessons/m2/L08.jsx'
+import L09 from '../lessons/m2/L09.jsx'
 import L10 from '../lessons/m2/L10.jsx'
 
 export const MODULES = [
@@ -31,8 +33,8 @@ export const MODULES = [
     thread: 'Individual vectors are points. Collections of vectors have geometry.',
     lectures: [
       { id: 'l07', num: '07', title: 'Linear Combinations & Independence',     component: L07  },
-      { id: 'l08', num: '08', title: 'Linear Independence (continued)',        component: null },
-      { id: 'l09', num: '09', title: 'Linear Independence (continued)',        component: null },
+      { id: 'l08', num: '08', title: 'Counting Independent Vectors (LDLᵀ)',    component: L08  },
+      { id: 'l09', num: '09', title: 'Existence & Uniqueness of Solutions',    component: L09  },
       { id: 'l10', num: '10', title: 'Euclidean Norm, Least Squares & Regression', component: L10  },
       { id: 'l11', num: '11', title: 'Subspaces: Range, Column Span, Null Space', component: null },
       { id: 'l12', num: '12', title: 'Dot Product & Orthonormal Vectors',      component: null },

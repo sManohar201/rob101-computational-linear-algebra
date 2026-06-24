@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L10` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L8` · `✅ L9` · `✅ L10` · remaining lectures are stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 
@@ -52,7 +52,9 @@ Understanding that geometry separates engineers who compute from engineers who u
 
 | Lec | Topic | Key Ideas | Robotics Anchor |
 |-----|-------|-----------|-----------------|
-| ✅ 7 · (8–9) | Vector Space ℝⁿ Pt 1: Linear Combinations & Independence | n-tuples; span; linear independence; LU test; LDLT | Point cloud from depth camera = set of vectors in ℝ³; are they independent? |
+| ✅ 7 | Vector Space ℝⁿ Pt 1: Linear Combinations & Independence | n-tuples; span; linear independence; existence of Ax=b; LU/AᵀA test | Point cloud from depth camera = set of vectors in ℝ³; are they independent? |
+| ✅ 8 | Counting Independent Vectors: the LDLᵀ Factorization | Ch. 7 §7.6: # independent columns = # non-zero diag(D); selecting independent columns via P; rank / dim span preview | How many independent directions a robot Jacobian / sensor suite truly has |
+| ✅ 9 | Existence & Uniqueness of Solutions to Ax=b | Ch. 7 §7.7–7.8: Attractive Test (compare diag(D) vs diag(Dₑ)); none / unique / infinite via kₑ vs k vs m | Redundant manipulator: reachable pose, dependent columns ⇒ infinitely many joint solutions |
 | ✅ 10 | Euclidean Norm, Least Squares & Linear Regression | ‖v‖₂; error vector e = Ax−b; minimize ‖e‖; normal equations AᵀAx=Aᵀb; regressor matrix Φ, fitting line & quadratic | Sensor fusion: overdetermined system, find best estimate |
 | 11 | Vector Space ℝⁿ Pt 2: Subspaces | Vector space axioms; subspace; span; range, column span, null space of A | Robot workspace = range(J); null space = motions that don't move the end-effector |
 | 12 | Dot Product & Orthonormal Vectors | Inner product; angle between vectors; orthogonality; Gram-Schmidt | IMU gyro axes must be orthonormal; misalignment = non-zero dot products |
@@ -63,7 +65,8 @@ Understanding that geometry separates engineers who compute from engineers who u
 
 ### Three.js Widgets — Module 2
 - **L7** *(built, 2 widgets):* (a) Span visualizer — toggle 1/2/3 vectors and drag a probe vector v₃, watching the span grow line → plane → ℝ³, with a live independence verdict and `dim span` (rank) readout; a third vector that lies in the plane is flagged linearly dependent; (b) linear-combination reachability — slide α₁, α₂ to walk α₁u₁+α₂u₂ over the span plane and chase a target b, reachable **iff** b lies on the plane (built on Grizzle Ex. 7.4: solvable b=(0,−8,5) vs unreachable b=(4,4,4)). Covers Ch. 7: linear combinations, span, existence of Ax=b, linear independence, and the AᵀA / LDLT independence test
-- **L8–9:** *(stubs)* continue Ch. 7 — more independence practice, LDLT column counting, existence + uniqueness
+- **L8** *(built, 1 widget):* the independence counter — pick a set of vectors in ℝ³ (presets: 3 independent → ℝ³, 2 → a plane, a redundant 3rd, 4-in-ℝ³, all parallel), the HUD shows live `diag(D)` from the LDLᵀ factorization of `AᵀA` with non-zero pivots in green, the count `k` = number independent, and the span drawn (line/plane/box) with redundant vectors greyed out. Covers Ch. 7 §7.6: from yes/no independence to counting it, why symmetric LDLᵀ (not plain LU) counts reliably, identifying which columns are independent via the permutation; worked Ex. 7.11–7.13 (7×5 → `diag(D)=[15.6,5.2,4.4,2.3,0]`, k=4); previews rank / dim span
+- **L9** *(built, 1 widget):* existence + uniqueness classifier — columns of `A` + a rose `b` in ℝ³, three presets (unique / none / infinite) with live independence counts of `A` vs `[A b]` and the verdict. Covers Ch. 7 §7.7–7.8: the Attractive Test for linear combinations (compare `diag(D)` vs `diag(Dₑ)`), the existence-and-uniqueness theorem and its three outcomes (none if `kₑ>k`, unique if `kₑ=k=m`, infinite if `kₑ=k<m`), uniqueness-from-independence proof (`Aα=0 ⇒ α=0`); worked Ex. 7.14–7.15; sets up least squares (L10) for the unreachable-`b` case
 - **L10** *(built, 2 widgets):* (a) Least-squares line fit (Grizzle Ex. 8.1, Fig 8.1) — five non-collinear data points with sliders for slope/intercept, rose error bars eᵢ = yᵢ−(mxᵢ+b) and a live Σeᵢ² HUD, plus a ★ preset that snaps to the normal-equations optimum (m=2.12, b=2.33, ‖e‖²=4.456); (b) line-vs-parabola regression (Grizzle Ex. 8.2) — toggle the regressor matrix Φ between [x 1] and [1 x x²], auto-solving (ΦᵀΦ)α=ΦᵀY in JS to show the same machinery fits a curve, with det(ΦᵀΦ) and ‖e‖² readouts proving the quadratic wins. Covers Ch. 8: Euclidean norm + properties, e=Ax−b, minimize ‖Ax−b‖², normal equations, linear regression as fitting functions (linear in the coefficients)
 - **L11:** Subspace zoo — toggle null space (purple), column space (teal), show orthogonal complement
 - **L12:** Gram-Schmidt animated — start with 3 arbitrary vectors, watch them orthogonalize step by step
