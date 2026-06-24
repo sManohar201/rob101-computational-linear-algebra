@@ -8,6 +8,9 @@ import L07 from '../lessons/m2/L07.jsx'
 import L08 from '../lessons/m2/L08.jsx'
 import L09 from '../lessons/m2/L09.jsx'
 import L10 from '../lessons/m2/L10.jsx'
+import L11 from '../lessons/m2/L11.jsx'
+import L12 from '../lessons/m2/L12.jsx'
+import L13 from '../lessons/m2/L13.jsx'
 
 export const MODULES = [
   {
@@ -36,9 +39,9 @@ export const MODULES = [
       { id: 'l08', num: '08', title: 'Counting Independent Vectors (LDLᵀ)',    component: L08  },
       { id: 'l09', num: '09', title: 'Existence & Uniqueness of Solutions',    component: L09  },
       { id: 'l10', num: '10', title: 'Euclidean Norm, Least Squares & Regression', component: L10  },
-      { id: 'l11', num: '11', title: 'Subspaces: Range, Column Span, Null Space', component: null },
-      { id: 'l12', num: '12', title: 'Dot Product & Orthonormal Vectors',      component: null },
-      { id: 'l13', num: '13', title: 'QR Factorization',                       component: null },
+      { id: 'l11', num: '11', title: 'Subspaces: Range, Column Span, Null Space', component: L11 },
+      { id: 'l12', num: '12', title: 'Dot Product & Orthonormal Vectors',      component: L12 },
+      { id: 'l13', num: '13', title: 'QR Factorization',                       component: L13 },
       { id: 'l14', num: '14', title: 'Basis Vectors & Eigenvalues',            component: null },
       { id: 'l15', num: '15', title: 'Range, Null Space, Rank & Nullity',     component: null },
       { id: 'l16', num: '16', title: 'Recap: Chapters 1–10',                  component: null },
