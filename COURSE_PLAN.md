@@ -13,7 +13,7 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · remaining lectures are stubs (`component: null` in
+**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · remaining lectures are stubs (`component: null` in
 `src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
 actually implemented and wired.
 
@@ -52,7 +52,7 @@ Understanding that geometry separates engineers who compute from engineers who u
 
 | Lec | Topic | Key Ideas | Robotics Anchor |
 |-----|-------|-----------|-----------------|
-| 7–9 | Vector Space ℝⁿ Pt 1: Linear Combinations & Independence | n-tuples; span; linear independence; LU test; LDLT | Point cloud from depth camera = set of vectors in ℝ³; are they independent? |
+| ✅ 7 · (8–9) | Vector Space ℝⁿ Pt 1: Linear Combinations & Independence | n-tuples; span; linear independence; LU test; LDLT | Point cloud from depth camera = set of vectors in ℝ³; are they independent? |
 | 10 | Euclidean Norm, Least Squares & Linear Regression | ‖v‖₂; error vector e = Ax−b; minimize ‖e‖; normal equations AᵀAx=Aᵀb | Sensor fusion: overdetermined system, find best estimate |
 | 11 | Vector Space ℝⁿ Pt 2: Subspaces | Vector space axioms; subspace; span; range, column span, null space of A | Robot workspace = range(J); null space = motions that don't move the end-effector |
 | 12 | Dot Product & Orthonormal Vectors | Inner product; angle between vectors; orthogonality; Gram-Schmidt | IMU gyro axes must be orthonormal; misalignment = non-zero dot products |
@@ -62,7 +62,8 @@ Understanding that geometry separates engineers who compute from engineers who u
 | 16 | Recap: Chapters 1–10 | Consolidation: linear systems → factorizations → vector spaces | Full pipeline: sensor data → solved state vector |
 
 ### Three.js Widgets — Module 2
-- **L7–9:** Span visualizer — add vectors one at a time, watch span grow from line → plane → ℝ³
+- **L7** *(built, 2 widgets):* (a) Span visualizer — toggle 1/2/3 vectors and drag a probe vector v₃, watching the span grow line → plane → ℝ³, with a live independence verdict and `dim span` (rank) readout; a third vector that lies in the plane is flagged linearly dependent; (b) linear-combination reachability — slide α₁, α₂ to walk α₁u₁+α₂u₂ over the span plane and chase a target b, reachable **iff** b lies on the plane (built on Grizzle Ex. 7.4: solvable b=(0,−8,5) vs unreachable b=(4,4,4)). Covers Ch. 7: linear combinations, span, existence of Ax=b, linear independence, and the AᵀA / LDLT independence test
+- **L8–9:** *(stubs)* continue Ch. 7 — more independence practice, LDLT column counting, existence + uniqueness
 - **L10:** Least-squares geometric view — overdetermined system as 3+ lines that don't meet; find closest point
 - **L11:** Subspace zoo — toggle null space (purple), column space (teal), show orthogonal complement
 - **L12:** Gram-Schmidt animated — start with 3 arbitrary vectors, watch them orthogonalize step by step
