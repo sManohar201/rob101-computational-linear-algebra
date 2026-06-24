@@ -4,6 +4,7 @@ import L03 from '../lessons/m1/L03.jsx'
 import L04 from '../lessons/m1/L04.jsx'
 import L05 from '../lessons/m1/L05.jsx'
 import L06 from '../lessons/m1/L06.jsx'
+import L07 from '../lessons/m2/L07.jsx'
 
 export const MODULES = [
   {
@@ -28,7 +29,7 @@ export const MODULES = [
     color: '#4488ff',
     thread: 'Individual vectors are points. Collections of vectors have geometry.',
     lectures: [
-      { id: 'l07', num: '07', title: 'Linear Combinations & Independence',     component: null },
+      { id: 'l07', num: '07', title: 'Linear Combinations & Independence',     component: L07  },
       { id: 'l08', num: '08', title: 'Linear Independence (continued)',        component: null },
       { id: 'l09', num: '09', title: 'Linear Independence (continued)',        component: null },
       { id: 'l10', num: '10', title: 'Euclidean Norm, Least Squares & Regression', component: null },
