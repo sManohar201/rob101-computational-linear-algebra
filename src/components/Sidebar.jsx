@@ -11,9 +11,7 @@ export default function Sidebar({ activeLecture, onSelect }) {
   return (
     <nav className="sidebar">
       <div className="sidebar-header">
-        <div className="course-badge">ROB 101</div>
         <h1 className="course-title">Computational<br />Linear Algebra</h1>
-        <p className="course-sub">University of Michigan · Fall 2021</p>
       </div>
 
       <div className="module-list">

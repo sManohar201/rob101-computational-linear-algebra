@@ -42,11 +42,10 @@ function quadRoots({ a, b, c }) {
 
 function parabolaPoints({ a, b, c }) {
   const pts = []
-  const xmin = -7.5, xmax = 3.5
-  for (let i = 0; i <= 140; i++) {
-    const x = xmin + (xmax - xmin) * i / 140
-    let y = (a * x * x + b * x + c) * SY
-    y = Math.max(-8.2, Math.min(8.2, y))
+  const xmin = -7.5, xmax = 7.5
+  for (let i = 0; i <= 200; i++) {
+    const x = xmin + (xmax - xmin) * i / 200
+    const y = (a * x * x + b * x + c) * SY
     pts.push(new THREE.Vector3(x, y, 0.02))
   }
   return pts
@@ -81,9 +80,8 @@ function QuadraticWidget() {
     const r = quadRoots(shown)
     r.real.forEach(rx => { if (rx >= -7.6 && rx <= 3.6) add(sphere(new THREE.Vector3(rx, 0, 0.06), COL.point, 0.2)) })
     const xv = Math.abs(shown.a) > 1e-6 ? -shown.b / (2 * shown.a) : 0
-    let yv = (shown.a * xv * xv + shown.b * xv + shown.c) * SY
-    yv = Math.max(-8.2, Math.min(8.2, yv))
-    if (xv >= -7.6 && xv <= 3.6) add(sphere(new THREE.Vector3(xv, yv, 0.06), COL.vertex, 0.13))
+    const yv = (shown.a * xv * xv + shown.b * xv + shown.c) * SY
+    if (xv >= -7.6 && xv <= 7.6 && Math.abs(yv) <= 8.5) add(sphere(new THREE.Vector3(xv, yv, 0.06), COL.vertex, 0.13))
   }, [shown]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const r = quadRoots(target)
@@ -523,6 +521,9 @@ export default function L01() {
             </li>
             <li style={{ marginBottom: '8px' }}>
               <strong><InlineMath>{'b'}</InlineMath> (Slope &amp; Shift):</strong> The slope of the curve as it crosses the vertical axis (<InlineMath>{'x = 0'}</InlineMath>). Changing <InlineMath>{'b'}</InlineMath> shifts the peak/valley (vertex) along a curved path.
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px', paddingLeft: '12px', borderLeft: '2px solid var(--border)' }}>
+                <em>Why?</em> The derivative is <InlineMath>{"f'(x) = 2ax + b"}</InlineMath>. At the vertical axis (<InlineMath>{'x = 0'}</InlineMath>), the slope is exactly <InlineMath>{"f'(0) = b"}</InlineMath>. Geometrically, if you zoom in infinitely close to the <InlineMath>{'y'}</InlineMath>-intercept, the parabola behaves like the straight tangent line <InlineMath>{'y = bx + c'}</InlineMath> with slope <InlineMath>{'b'}</InlineMath>.
+              </div>
             </li>
             <li style={{ marginBottom: '8px' }}>
               <strong><InlineMath>{'c'}</InlineMath> (Vertical Elevation):</strong> The height of the curve where it crosses the vertical axis (the <InlineMath>{'y'}</InlineMath>-intercept, where <InlineMath>{'f(0) = c'}</InlineMath>). Adjusting this slides the entire parabola up or down.
@@ -573,6 +574,26 @@ export default function L01() {
           <p>Geometrically, a single linear equation carves out a flat object: a line in 2D, a plane in 3D, a hyperplane in <InlineMath>{'\\mathbb{R}^n'}</InlineMath>. A <strong>system</strong> of two equations in two unknowns is</p>
           <DisplayMath>{String.raw`\begin{cases} a_{11}x + a_{12}y = b_1 \\ a_{21}x + a_{22}y = b_2 \end{cases}`}</DisplayMath>
           <p>and "solving" it means finding the <InlineMath>{'(x,y)'}</InlineMath> that lies on <em>both</em> lines simultaneously.</p>
+
+          <div className="callout callout-info" style={{ marginTop: '1.5rem' }}>
+            <strong>Algebra to Geometry: Deriving the Slope-Intercept Form</strong>
+            <p>
+              To see how a single linear equation <InlineMath>{'a_1 x + a_2 y = b'}</InlineMath> corresponds to the slope-intercept form <InlineMath>{'y = mx + d'}</InlineMath> we learn in school, we isolate the vertical coordinate <InlineMath>{'y'}</InlineMath>:
+            </p>
+            <ol style={{ paddingLeft: '22px', marginTop: '8px' }}>
+              <li style={{ marginBottom: '6px' }}>
+                Subtract <InlineMath>{'a_1 x'}</InlineMath> from both sides:
+                <DisplayMath>{'a_2 y = -a_1 x + b.'}</DisplayMath>
+              </li>
+              <li style={{ marginBottom: '6px' }}>
+                Divide both sides by <InlineMath>{'a_2'}</InlineMath> (assuming <InlineMath>{'a_2 \\neq 0'}</InlineMath>):
+                <DisplayMath>{'y = \\left( -\\frac{a_1}{a_2} \\right) x + \\frac{b}{a_2}.'}</DisplayMath>
+              </li>
+            </ol>
+            <p style={{ marginTop: '8px' }}>
+              Comparing this to <InlineMath>{'y = mx + d'}</InlineMath> reveals that the slope is <InlineMath>{'m = -\\frac{a_1}{a_2}'}</InlineMath> and the <InlineMath>{'y'}</InlineMath>-intercept is <InlineMath>{'d = \\frac{b}{a_2}'}</InlineMath>. If <InlineMath>{'a_2 = 0'}</InlineMath>, the line is vertical: <InlineMath>{'x = \\frac{b}{a_1}'}</InlineMath>.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -657,9 +678,11 @@ export default function L01() {
           <p>then back-substitute: <InlineMath>{'x_2 = 2x_3 = 3'}</InlineMath> and <InlineMath>{'x_1 = 7 - 4(1.5) = 1'}</InlineMath>.</p>
           <DisplayMath>{String.raw`\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 1 \\ 3 \\ 1.5 \end{bmatrix}.`}</DisplayMath>
           <div className="callout callout-warning">
-            <strong>Tedium ⟹ Motivation.</strong> That was a slog for just three equations. Four is worse; a
-            hundred by hand is hopeless — and "hundreds of variables with confidence" is exactly this course's
-            four-week goal. The pain is the point: it motivates the matrix machinery that makes this routine.
+            <strong>The Scaling Problem: From Tedium to Automation.</strong> Manual substitution scales terribly:
+            while three equations is a chore, scaling to a hundred variables by hand is hopeless. The core goal of 
+            this course is to equip you to handle hundreds of variables with confidence. This arithmetic friction 
+            is the perfect catalyst; it motivates the matrix machinery that makes high-dimensional calculations 
+            routine and effortless.
           </div>
           <p>
             One more warning case. The system <InlineMath>{'x = 1,\\; y = 2,\\; x + y = a'}</InlineMath> has
@@ -699,7 +722,7 @@ export default function L01() {
               <h3>LiDAR Map Building</h3>
               <p>
                 Cassie Blue's 32-beam Velodyne returns thousands of points per scan. Stitching scans into one
-                map means applying matrices to vectors to align coordinate frames — Project 1 of ROB 101, and a
+                map means applying matrices to vectors to align coordinate frames, which is a
                 direct descendant of solving <InlineMath>{'A\\mathbf{x}=\\mathbf{b}'}</InlineMath>.
               </p>
             </div>

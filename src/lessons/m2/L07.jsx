@@ -352,7 +352,7 @@ export default function L07() {
           <DisplayMath>{String.raw`\mathbb{R}^n := \left\{ (x_1, x_2, \dots, x_n) \mid x_i \in \mathbb{R} \right\} \;\longleftrightarrow\; \left\{ \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \right\}.`}</DisplayMath>
           <p>
             The <InlineMath>{'x_j'}</InlineMath> are the <strong>components</strong> (or entries) of the vector. In
-            ROB 101 a "point" and a "vector" are the same object: an ordered list of numbers. The columns of an
+            our treatment, a "point" and a "vector" are the same object: an ordered list of numbers. The columns of an
             <InlineMath>{'\\;n\\times m'}</InlineMath> matrix are vectors in <InlineMath>{'\\mathbb{R}^n'}</InlineMath>,
             and conversely any list of vectors can be stacked side-by-side to form a matrix.
           </p>

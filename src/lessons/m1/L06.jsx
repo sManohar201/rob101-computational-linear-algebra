@@ -346,8 +346,8 @@ export default function L06() {
           <p>
             <strong>Third, and most important:</strong> even though <InlineMath>{'A\\mathbf{x}=\\mathbf{b}'}</InlineMath> has
             the gorgeous closed-form answer <InlineMath>{'\\mathbf{x}=A^{-1}\\mathbf{b}'}</InlineMath>, computing
-            <InlineMath>{'\\;A^{-1}'}</InlineMath> is a slow and numerically fragile way to get there. Your instructors at
-            Michigan put it bluntly: <em>"we don't hang out with people who compute matrix inverses."</em> By the end of this
+            <InlineMath>{'\\;A^{-1}'}</InlineMath> is a slow and numerically fragile way to get there. Numerical analysts
+            put it bluntly: <em>"we don't hang out with people who compute matrix inverses."</em> By the end of this
             lecture you'll understand exactly why.
           </p>
         </div>

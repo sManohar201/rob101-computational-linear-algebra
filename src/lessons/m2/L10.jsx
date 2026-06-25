@@ -510,7 +510,7 @@ export default function L10() {
               <div className="app-icon">🌊</div>
               <h3>NOAA Tide Regression</h3>
               <p>
-                A ROB 101 project fits sinusoidal models to years of tide-gauge data by least squares. The columns of
+                We can fit sinusoidal models to years of tide-gauge data by least squares. The columns of
                 <InlineMath>{'\\;\\Phi'}</InlineMath> are sines and cosines of known periods; the fitted
                 <InlineMath>{'\\;\\alpha^{*}'}</InlineMath> predicts tides months ahead.
               </p>
