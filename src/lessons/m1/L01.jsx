@@ -460,6 +460,41 @@ export default function L01() {
           <DisplayMath>{'a x^2 + b x + c = 0, \\qquad a \\neq 0,'}</DisplayMath>
           <p>with constants <InlineMath>{'a, b, c'}</InlineMath>. Its solutions are given by the quadratic formula:</p>
           <DisplayMath>{'x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}.'}</DisplayMath>
+
+          <div className="callout callout-info" style={{ margin: '20px 0' }}>
+            <strong>Proof &amp; Algebraic Tricks: Deriving the Formula</strong>
+            <p>
+              How do we arrive at this formula? We use a central mathematical technique called <strong>completing the square</strong>. 
+              Here is the step-by-step proof, along with the structural "tricks" used to crack it:
+            </p>
+            <ol style={{ paddingLeft: '22px', marginTop: '10px' }}>
+              <li style={{ marginBottom: '10px' }}>
+                <strong>Trick 1: Normalize the leading coefficient.</strong> Divide the equation <InlineMath>{'a x^2 + b x + c = 0'}</InlineMath> by <InlineMath>{'a'}</InlineMath> to make the coefficient of <InlineMath>{'x^2'}</InlineMath> equal to 1:
+                <DisplayMath>{'x^2 + \\frac{b}{a} x + \\frac{c}{a} = 0.'}</DisplayMath>
+                <em>Concept:</em> Normalizing simplifies equations and isolates the core relationship between the variable powers.
+              </li>
+              <li style={{ marginBottom: '10px' }}>
+                <strong>Trick 2: Isolate the variable terms.</strong> Move the constant term to the right-hand side:
+                <DisplayMath>{'x^2 + \\frac{b}{a} x = -\\frac{c}{a}.'}</DisplayMath>
+              </li>
+              <li style={{ marginBottom: '10px' }}>
+                <strong>Trick 3: Complete the square (the geometric identity trick).</strong> To group the two separate terms of <InlineMath>{'x'}</InlineMath> into a single solvable term, add <InlineMath>{'\\frac{b^2}{4a^2}'}</InlineMath> to both sides:
+                <DisplayMath>{'x^2 + \\frac{b}{a} x + \\frac{b^2}{4a^2} = \\frac{b^2}{4a^2} - \\frac{c}{a}.'}</DisplayMath>
+                The left side is now a perfect square <InlineMath>{'(x + d)^2'}</InlineMath> where <InlineMath>{'d = \\frac{b}{2a}'}</InlineMath>:
+                <DisplayMath>{'\\left(x + \\frac{b}{2a}\\right)^2 = \\frac{b^2}{4a^2} - \\frac{c}{a}.'}</DisplayMath>
+              </li>
+              <li style={{ marginBottom: '10px' }}>
+                <strong>Trick 4: Establish a common denominator.</strong> Combine the terms on the right under a single denominator <InlineMath>{'4a^2'}</InlineMath>:
+                <DisplayMath>{'\\left(x + \\frac{b}{2a}\\right)^2 = \\frac{b^2 - 4ac}{4a^2}.'}</DisplayMath>
+              </li>
+              <li style={{ marginBottom: '10px' }}>
+                <strong>Trick 5: Introduce the <InlineMath>{'\\pm'}</InlineMath> branch.</strong> Take the square root of both sides. Because both positive and negative values square to a positive number, we must capture both branches:
+                <DisplayMath>{'x + \\frac{b}{2a} = \\pm \\frac{\\sqrt{b^2 - 4ac}}{2a}.'}</DisplayMath>
+                Subtracting <InlineMath>{'\\frac{b}{2a}'}</InlineMath> from both sides yields the final formula.
+              </li>
+            </ol>
+          </div>
+
           <p>
             Everything hinges on the quantity under the root, the <strong>discriminant</strong>
             <InlineMath>{'\\;\\Delta := b^2 - 4ac'}</InlineMath>:
@@ -478,6 +513,22 @@ export default function L01() {
 
       <section className="lesson-section widget-section">
         <h2 className="section-title"><span className="section-tag widget-tag">INTERACTIVE · DISCRIMINANT &amp; ROOTS</span></h2>
+        <div className="content-block" style={{ marginBottom: '1.5rem' }}>
+          <p>
+            Use the sliders below to adjust the constants and see how they geometrically shape the parabola:
+          </p>
+          <ul style={{ paddingLeft: '22px', marginTop: '10px' }}>
+            <li style={{ marginBottom: '8px' }}>
+              <strong><InlineMath>{'a'}</InlineMath> (Curvature &amp; Direction):</strong> Determines if the parabola opens upward (<InlineMath>{'a > 0'}</InlineMath>) or downward (<InlineMath>{'a < 0'}</InlineMath>), and how steep or wide it is.
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong><InlineMath>{'b'}</InlineMath> (Slope &amp; Shift):</strong> The slope of the curve as it crosses the vertical axis (<InlineMath>{'x = 0'}</InlineMath>). Changing <InlineMath>{'b'}</InlineMath> shifts the peak/valley (vertex) along a curved path.
+            </li>
+            <li style={{ marginBottom: '8px' }}>
+              <strong><InlineMath>{'c'}</InlineMath> (Vertical Elevation):</strong> The height of the curve where it crosses the vertical axis (the <InlineMath>{'y'}</InlineMath>-intercept, where <InlineMath>{'f(0) = c'}</InlineMath>). Adjusting this slides the entire parabola up or down.
+            </li>
+          </ul>
+        </div>
         <QuadraticWidget />
       </section>
 
