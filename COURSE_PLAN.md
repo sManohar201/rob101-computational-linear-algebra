@@ -13,9 +13,13 @@ rigorous derivations, and robotics anchors at every step.
 6 modules, 24 lectures. Each lecture = one teaching session:
 intuition → Three.js widget → formalism → derivation → robotics application → quiz.
 
-**Build status:** `✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L8` · `✅ L9` · `✅ L10` · `✅ L11` · `✅ L12` · `✅ L13` · `✅ L14` · `✅ L15` · `✅ L17` · `✅ L18` · `✅ L19` · `✅ L20` · `✅ L21` · `✅ L22` · `✅ L23` · only `L16` (recap) and `L24` (soft-margin/Gaussian SVM) remain stubs (`component: null` in
-`src/data/curriculum.js`). See [PRODUCTION FORMAT](#production-format) for how lectures are
-actually implemented and wired.
+**Build status — Main course (24 lectures):**
+`✅ L1` · `✅ L2` · `✅ L3` · `✅ L4` · `✅ L5` · `✅ L6` · `✅ L7` · `✅ L8` · `✅ L9` · `✅ L10` · `✅ L11` · `✅ L12` · `✅ L13` · `✅ L14` · `✅ L15` · `🔲 L16` · `✅ L17` · `✅ L18` · `✅ L19` · `✅ L20` · `✅ L21` · `✅ L22` · `✅ L23` · `🔲 L24`
+
+`L16` (recap/concept-map) and `L24` (soft-margin/Gaussian SVM) are the only remaining stubs — both have full widget specs below. See [PRODUCTION FORMAT](#production-format) for how to wire a lecture.
+
+**Build status — Appendices (3 bonus lessons):**
+`🔲 LA` (SVD, complex eigenvalues, PD matrices) · `🔲 LB` (ODEs) · `🔲 LC` (Camera & LiDAR models) — all planned; see [APPENDICES](#appendices--supplementary-bonus-lessons) for full specs.
 
 ---
 
@@ -73,7 +77,8 @@ Understanding that geometry separates engineers who compute from engineers who u
 - **L13** *(built, 2 widgets):* (a) the **QR pipeline** solver (DOM) — pick `A,b`, step through factor `A = QR` (numeric Q,R), form `b̄ = Qᵀb`, back-substitute `Rx = b̄`; verified to reproduce Grizzle Ex. 9.20's `x = (−1,2,1)`; (b) **steering a mobile robot** (Grizzle §9.10) — `pₖ₊₁ = Apₖ + Buₖ`; the zero-control preset spirals outward like a Roomba, the steer presets solve the underdetermined `Muₛₑ𝓆 = pₙ − Sp₀` for the **minimum-norm** control and glide to the origin, HUD shows control effort `‖u‖²` (verified 10.26 at N=20 vs 200.5 at N=1, matching the book). Covers Ch. 9 §9.8–9.10: QR factorization, the suggested pipeline, least squares via QR (`AᵀA = RᵀR`), minimum-norm/underdetermined solutions; worked Ex. 9.19–9.22
 - **L14** *(built, 2 widgets):* (a) the **eigenvector finder** — sweep an input vector v(θ) and watch its image Av swing off-axis (orange) until it snaps back onto a faint dashed **eigen-line** (Av = λv); presets for distinct-real / symmetric (orthogonal eigvecs) / shear / pure-rotation (complex, badge flips to "every vector rotates") / contraction+growth, with snap-to-v₁/v₂ buttons and a live tr/det/λ HUD; (b) **power iteration** (DOM) — normalised Aᵏx with a converging angle column showing the direction locking onto the dominant eigenvector (green when converged), complex preset never converging. Covers Ch. 10 §10.2–10.3: basis/coordinates/dimension, det≠0⇔basis, characteristic equation, eigenbasis/complex/symmetric facts, Aᵏx → dominant eigenvector (PageRank/PCA)
 - **L15** *(built, 2 widgets):* (a) **solution set = xₚ + null(A)** — null(A) drawn through the origin (purple line/plane) and the parallel teal solution set through xₚ; slide along the null direction(s) and A·x stays pinned at b; presets for rank-2/nullity-1 (line), rank-1/nullity-2 (plane), unique point, and b∉range (no solution), with a rank+nullity=m HUD; (b) the **rank–nullity ledger** (DOM) — a table over square and non-square shapes (incl. the 7×5 Grizzle example) verifying rank+nullity=m every time. Covers Ch. 10 §10.4–10.6: null/range, existence/uniqueness, general solution, rank–nullity theorem + proof sketch
-- **L16:** Full pipeline widget — input A and b, watch flow through LU → QR → solution *(stub)*
+- **L16** *(2 widgets — stub, build next):* (a) **"Algorithm zoo" comparison** (DOM) — a side-by-side table of the four factorizations (LU, LDLᵀ, QR, Normal Equations): use case / operation count / numerical stability / what it reveals about A; below the table, a 3×3 matrix picker (presets: well-conditioned / ill-conditioned / symmetric PD / rank-deficient) steps through whichever algorithm is selected to solve Ax=b, with each step annotated; a "which algorithm wins?" verdict panel at the bottom; (b) **"Every concept on one diagram"** — a Three.js force-graph whose nodes are the 10 chapter concepts (Linear System · LU · Determinant · Rank · Null Space · QR · Eigenvalues · Least Squares · Subspaces · Optimization) and whose edges encode dependency ("LU enables → Determinant", "Rank + Null Space → Rank–Nullity theorem", etc.); click any node to highlight its path back to Ax=b and show the lecture(s) that introduced it; orbit + zoom to explore. Covers: consolidation of Grizzle Chs. 1–10; maps to the checkpoint "Recap — every concept so far on one diagram."
+  - **To build L16:** create `src/lessons/m2/L16.jsx`, follow the 6-section structure; wire it in `curriculum.js` (`import L16 from '../lessons/m2/L16.jsx'`, set `component: L16`). The DOM widget (a) needs no Three.js — use plain React state + CSS grid. Widget (b) uses Three.js `SphereGeometry` nodes + `TubeGeometry` edges; store graph data as a static JS array of `{id, label, links:[]}` objects.
 
 ---
 
@@ -115,7 +120,92 @@ This is the foundation of modern ML.
 ### Three.js Widgets — Module 4
 - **L22** *(built, 2 widgets):* (a) **hyperplane & signed distance** — a tilted plane with its normal a in ℝ³; drag a query point across it and watch the signed distance a·(x−xc)/‖a‖ flip sign between H⁺ (teal) and H⁻ (rose), foot-of-perpendicular drawn; (b) **orthogonal projection** — project x₀ onto a plane V=span{v₁,v₂}; the rose error x₀−x* stays ⟂ V with a live Pythagorean check ‖x₀‖²=‖x*‖²+‖e‖², tying projection to the least-squares normal equations. Covers Ch. 13 §13.1–13.2, §13.4: hyper-subspace/hyperplane, half-spaces, signed distance, projection theorem, Gram matrix
 - **L23** *(built, 2 widgets):* (a) the **max-margin classifier** — two labelled 2D clouds; rotate/shift the boundary and read the margin (smallest gap), then ★ snap-to-optimum (brute-force max-min over orientation) marks the support vectors (white-dotted) and flips the badge to "max-margin solution (SVM)"; non-separating orientations flagged; (b) the **QP behind the margin** (DOM) — the hard-margin QP min ½‖w‖² s.t. ℓᵢ(wᵀx̃ᵢ)≥1, the OSQP standard form, and least-squares-as-QP (Q=2AᵀA, q=−2Aᵀb). Covers Ch. 13 §13.3 + Ch. 12 §12.8
-- **L24:** Kernel SVM — nonlinearly separable data in 2D lifted to 3D via feature map, then linearly separated *(stub)*
+- **L24** *(2 widgets — stub, build next):* (a) **Kernel lift** — two non-separable 2D point clouds (XOR / interlocking crescents preset) lifted to 3D via a Gaussian RBF feature map φ(x)=exp(−γ‖x−cᵢ‖²); a flat separating hyperplane is drawn in 3D feature space and its pre-image curved boundary shown in 2D; sweep γ (bandwidth slider) to morph from near-linear (γ small, underfitting) to hyper-local (γ large, overfitting) with a live test-accuracy HUD; presets: XOR / crescents / linearly separable (sanity check); (b) **Soft-margin tradeoff** (DOM) — the QP min ½‖w‖²+CΣξᵢ s.t. ℓᵢ(wᵀx̃ᵢ)≥1−ξᵢ, ξᵢ≥0; sliders for C (regularization strength) and γ; live readouts: margin width 2/‖w‖, # support vectors, # margin violations, train and test accuracy; the "C→∞ hard-margin on non-separable data" preset marks the QP infeasible with a red badge. Covers Grizzle Ch. 13 + slack variables + kernel trick; consolidation checkpoint "The entire course in one ML pipeline."
+  - **To build L24:** create `src/lessons/m4/L24.jsx`, wire it in `curriculum.js`. Widget (a): implement the Gaussian RBF lift as a plain JS function, project the lifted points with `SphereGeometry`, draw the 3D hyperplane with `PlaneGeometry`. Widget (b) is a DOM widget — implement a simple quadratic solver (gradient-descent on the dual, or a small hard-coded OSQP-style solver) so the margin and slacks update in real time.
+
+---
+
+## APPENDICES — Supplementary Bonus Lessons
+
+*Source: Grizzle Appendices A, B, C*
+
+These are optional bonus lessons that extend the 24-lecture core into advanced topics.
+Build them as `src/lessons/appendix/LA.jsx`, `LB.jsx`, `LC.jsx` and add a new module block
+in `curriculum.js`:
+
+```js
+import LA from '../lessons/appendix/LA.jsx'
+import LB from '../lessons/appendix/LB.jsx'
+import LC from '../lessons/appendix/LC.jsx'
+
+{
+  id: 'appendix', title: 'Appendix', subtitle: 'Beyond the Core', color: '#f08c00',
+  thread: 'Deeper tools for the curious engineer.',
+  lectures: [
+    { id: 'lA', num: 'A', title: 'SVD, Complex Eigenvalues & Positive Definite Matrices', component: LA },
+    { id: 'lB', num: 'B', title: 'Ordinary Differential Equations',                       component: LB },
+    { id: 'lC', num: 'C', title: 'Camera & LiDAR Models',                                 component: LC },
+  ],
+}
+```
+
+---
+
+### Appendix A — Cool Things Omitted from the Main Course
+*Source: Grizzle Appendix A*
+
+| Topic | Key Ideas | Robotics Anchor |
+|-------|-----------|-----------------|
+| A.1 Complex Numbers & Vectors | ℂ; polar form ρe^{iθ}; Euler's formula; zₖ₊₁=azₖ — spiral/decay/rotate by |a| and ∠a | Eigenvalues of a 2D rotation matrix are e^{±iθ}; stability of discrete-time control loops |
+| A.2 Eigenvalues (deep) | Algebraic vs geometric multiplicity; complex conjugate pairs; spectral decomposition A=QΛQᵀ for symmetric A | PCA of a robot sensor covariance matrix; A⁻¹=QΛ⁻¹Qᵀ for free |
+| A.3 Positive Definite Matrices | Quadratic form xᵀPx; PD iff all λᵢ>0; LDLᵀ and LU tests; Schur complement theorem | Lyapunov stability: V(x)=xᵀPx>0 proves a control law makes a robot converge |
+| A.4 Singular Value Decomposition | A=UΣVᵀ; σᵢ = effective rank gauge; rank-one expansion; numerical independence threshold δ | Robot manipulability ellipsoid; image compression (keep top-r singular values) |
+| A.5 Linear & Affine Transformations | L:ℝᵐ→ℝⁿ as matrix; differentiation on polynomials as matrix multiply; f(x)=Ax+b | Real-time signal differentiation on embedded hardware via matrix-vector multiply |
+
+#### Three.js Widgets — Appendix A
+
+- **A.1** *(1 widget):* **complex spiral** — the discrete-time system zₖ₊₁=azₖ animated in the complex plane; drag the pole `a` by its magnitude |a| and angle ∠a and watch the trajectory spiral inward (|a|<1, stable), outward (|a|>1, unstable), or orbit the unit circle (|a|=1); a second panel shows the real-plane trajectory of Aᵏv for the equivalent 2×2 real rotation-scaling matrix. Covers §A.1: ℂ, Euler's formula, difference equations, pole ↔ eigenvalue
+
+- **A.2** *(1 widget):* **spectral decomposition lab** — a 2×2 symmetric matrix A dialed via sliders (a,b,d in [[a,b],[b,d]]); eigenvectors v₁,v₂ drawn as orthogonal orange/blue arrows rotating live; the quadratic-form ellipse xᵀAx=1 in teal; the rank-one sum λ₁v₁v₁ᵀ+λ₂v₂v₂ᵀ shown rebuilding A with a "terms revealed" toggle. Covers §A.2: symmetric eigenstuff, A=QΛQᵀ, A⁻¹=QΛ⁻¹Qᵀ
+
+- **A.3** *(1 widget):* **PD bowl** — the surface z=xᵀPx for a 2×2 symmetric P; slide the two eigenvalues λ₁,λ₂ and watch the bowl warp: both positive → upward bowl (PD), one zero → trough (PSD), one negative → saddle (indefinite), both negative → downward bowl; LDLᵀ diag(D) shown live as the definiteness test. Covers §A.3: quadratic forms, PD/PSD/indefinite, LDLᵀ test, Schur complement
+
+- **A.4** *(2 widgets):* (a) **SVD as three operations** — a 2×2 matrix A=UΣVᵀ applied to the unit circle (shown as 32 probe vectors); animated in three stages: rotate by Vᵀ (purple), scale by Σ (teal → ellipse), rotate by U (orange); σ₁,σ₂ labels on the ellipse axes; (b) **rank-one reconstruction** (DOM) — a 5×4 numerical matrix reconstructed as Σᵢσᵢuᵢvᵢᵀ; a rank slider from 1 to 4 shows each term contributing and the Frobenius error falling. Covers §A.4: SVD theorem, geometric meaning, rank/nullity from singular values, low-rank approximation
+
+- **A.5** *(1 widget):* **differentiation matrix** (DOM) — pick polynomial degree n (2–5); display the (n+1)×(n+1) differentiation matrix A; input coefficient vector [a₀…aₙ] and watch A·[x]ᵥ produce the derivative coefficients; verify against symbolic d/dt alongside. Covers §A.5: linear transformations as matrices, polynomial basis, affine maps f(x)=Ax+b
+
+---
+
+### Appendix B — Ordinary Differential Equations
+*Source: Grizzle Appendix B*
+
+| Topic | Key Ideas | Robotics Anchor |
+|-------|-----------|-----------------|
+| B.1–B.3 Discrete vs Continuous Time | Difference equations; x[k+1]=x[k]+δt·f(x[k]); choosing δt for stability | Embedded control loop at 1 kHz: δt=0.001 s |
+| B.4 Modeling Physical Systems | F=ma as an ODE; drag model; discretizing the derivative (forward difference) | Simulating a falling drone with air resistance |
+| B.5 Nonlinear ODEs | Vector ODE dx/dt=Ax+b; nonlinear pendulum θ̈+(g/ℓ)sinθ=0; symmetric difference | Robot arm joint dynamics; why small δt matters near nonlinear regions |
+
+#### Three.js Widgets — Appendix B
+
+- **B.1–B.5** *(2 widgets):* (a) **Forward Euler phase portrait** — 2D state space (position x₁, velocity x₂) for dx/dt=Ax; drag the initial condition dot and watch the Euler trajectory trace out spirals/sinks/sources depending on eigenvalues of A; δt slider reveals the stability boundary — too large and Euler diverges even when the true ODE is stable; presets: stable spiral / unstable node / center; (b) **nonlinear pendulum** — simulate θ̈+(g/ℓ)sinθ=0 via Forward Euler with adjustable δt and initial angle θ₀; the phase portrait (θ, θ̇) animates in real time; toggle the linearized ODE (sinθ≈θ) alongside to see when they diverge. Covers §B.1–B.5: static vs dynamic equations, discrete time, forward difference, Euler integration, linear vector ODE, nonlinear pendulum
+
+---
+
+### Appendix C — Camera and LiDAR Models
+*Source: Grizzle Appendix C*
+
+| Topic | Key Ideas | Robotics Anchor |
+|-------|-----------|-----------------|
+| C.1–C.2 Pinhole Camera & Homogeneous Coords | Intrinsic K / extrinsic [R t]; homogeneous ↔ Cartesian; T·R·S composition | A camera's full projection pipeline is three matrix multiplies |
+| C.3–C.4 Perspective Projection | x=fX/Z; u=K[I 0][R t]X_w pipeline; focal length, principal point, pixel skew | Mapping a 3D robot endpoint to the 2D pixel where it appears |
+| C.5–C.6 Calibration & Distortion | Least squares to solve for K; radial/tangential distortion; Newton-Raphson to undistort | Calibrating a drone's downward camera from a planar checkerboard |
+| C.7–C.8 LiDAR-to-Camera Fusion | Π(Xᵢ;R,t):=Yᵢ projection map; rigid-body transform H^C_L; overlay point cloud on image | Fusing LiDAR depth with RGB image for obstacle detection |
+
+#### Three.js Widgets — Appendix C
+
+- **C.1–C.4** *(1 widget):* **camera projection pipeline** — a 3D scene with a movable point P=(X,Y,Z) and a virtual camera (frustum drawn in grey); sliders for focal length f, yaw/pitch rotation R, and translation t; an orange ray traces from P through the image plane to the projected pixel; the full matrix computation K[I 0][R t][X;1] shown live in a HUD breaking out each matrix stage. Covers §C.1–C.4: pinhole model, homogeneous coordinates, extrinsic + intrinsic matrices, perspective projection
+
+- **C.5–C.8** *(1 widget):* **LiDAR-to-camera overlay** — a synthetic 3D point cloud (cuboid obstacle) transformed by a 6-DOF extrinsic H^C_L and projected onto a 2D image plane drawn beside the 3D view; sliders for x/y/z/roll/pitch/yaw; a "calibrate" button generates N=6 known 3D↔2D correspondences and solves for the 5 intrinsic parameters in K via least squares, displaying the residual ‖Ax−b‖² before and after. Covers §C.5–C.8: camera calibration, distortion types, LiDAR-camera projection map, least squares as a real sensor fusion tool
 
 ---
 
